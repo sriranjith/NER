@@ -16,48 +16,51 @@ import opennlp.tools.util.Span;
 
 public class NERExtraction {
 
-	private static NameFinderME nameFinder = null;
-	static {
-		// Load the model created above
-		try {
-			InputStream inputStream = new FileInputStream(
-					"/Users/sriranjith/eclipse-workspace/DropWizardExample/ner/en-ner-date.bin");
-			TokenNameFinderModel model = new TokenNameFinderModel(inputStream);
-			nameFinder = new NameFinderME(model);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+    private static NameFinderME nameFinder = null;
 
-	public static List<NER> getEntityType(String sentence) {
-		InputStream inputStreamTokenizer;
-		List<NER> list = new ArrayList<>();
-		try {
-			inputStreamTokenizer = new FileInputStream(
-					"/Users/sriranjith/eclipse-workspace/DropWizardExample/ner/en-token.bin");
-			TokenizerModel tokenModel = new TokenizerModel(inputStreamTokenizer);
-			TokenizerME tokenizer = new TokenizerME(tokenModel);
-			String[] tokens = tokenizer.tokenize(sentence);
+    static {
+        // Load the model created above
+        try {
+            ClassLoader classLoader = NameFinderME.class.getClassLoader();
+            InputStream inputStream = new FileInputStream(classLoader.getResource("ner/en-ner" +
+                    "-date.bin").getFile());
+            TokenNameFinderModel model = new TokenNameFinderModel(inputStream);
+            nameFinder = new NameFinderME(model);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-			Span nameSpans[] = nameFinder.find(tokens);
-			// testing the model and printing the types it found in the input sentence
-			for (Span name : nameSpans) {
-				String entity = "";
-				for (int i = name.getStart(); i < name.getEnd(); i++) {
-					entity += tokens[i] + " ";
-				}
-				list.add(new NER(name.getType(), entity, name.getProb()));
-			}
+    public static List<NER> getEntityType(String sentence) {
+        InputStream inputStreamTokenizer;
+        List<NER> list = new ArrayList<>();
+        try {
+            ClassLoader classLoader = NameFinderME.class.getClassLoader();
+            InputStream inputStream =
+                    new FileInputStream(classLoader.getResource("ner/en-token" + ".bin").getFile());
+            TokenizerModel tokenModel = new TokenizerModel(inputStream);
+            TokenizerME tokenizer = new TokenizerME(tokenModel);
+            String[] tokens = tokenizer.tokenize(sentence);
 
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return list;
-	}
+            Span nameSpans[] = nameFinder.find(tokens);
+            // testing the model and printing the types it found in the input sentence
+            for (Span name : nameSpans) {
+                String entity = "";
+                for (int i = name.getStart(); i < name.getEnd(); i++) {
+                    entity += tokens[i] + " ";
+                }
+                list.add(new NER(name.getType(), entity, name.getProb()));
+            }
 
-	public static void main(String[] args) {
-		System.out.println(getEntityType("John is a person today"));
-	}
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getEntityType("John is a person today"));
+    }
 }
