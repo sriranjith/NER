@@ -14,6 +14,9 @@ import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 import opennlp.tools.util.Span;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class NERExtraction {
 
     private static NameFinderME nameFinder = null;
@@ -22,8 +25,9 @@ public class NERExtraction {
         // Load the model created above
         try {
             ClassLoader classLoader = NameFinderME.class.getClassLoader();
-            InputStream inputStream = new FileInputStream(classLoader.getResource("ner/en-ner" +
-                    "-date.bin").getFile());
+            InputStream inputStream =
+                    Thread.currentThread().getContextClassLoader().getResourceAsStream("ner/en" +
+                            "-ner" + "-date.bin");
             TokenNameFinderModel model = new TokenNameFinderModel(inputStream);
             nameFinder = new NameFinderME(model);
         } catch (IOException e) {
@@ -38,7 +42,7 @@ public class NERExtraction {
         try {
             ClassLoader classLoader = NameFinderME.class.getClassLoader();
             InputStream inputStream =
-                    new FileInputStream(classLoader.getResource("ner/en-token" + ".bin").getFile());
+                    Thread.currentThread().getContextClassLoader().getResourceAsStream("ner/en" + "-token.bin");
             TokenizerModel tokenModel = new TokenizerModel(inputStream);
             TokenizerME tokenizer = new TokenizerME(tokenModel);
             String[] tokens = tokenizer.tokenize(sentence);
