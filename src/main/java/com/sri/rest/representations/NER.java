@@ -1,4 +1,4 @@
-package com.howtodoinjava.rest.representations;
+package com.sri.rest.representations;
 
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;

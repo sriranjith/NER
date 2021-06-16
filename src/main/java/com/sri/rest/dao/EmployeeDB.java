@@ -1,10 +1,10 @@
-package com.howtodoinjava.rest.dao;
+package com.sri.rest.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.howtodoinjava.rest.representations.Employee;
+import com.sri.rest.representations.Employee;
 
 public class EmployeeDB {
 

@@ -1,4 +1,4 @@
-package com.howtodoinjava.rest.ner;
+package com.sri.rest.ner;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.howtodoinjava.rest.representations.NER;
+import com.sri.rest.representations.NER;
 
 import opennlp.tools.namefind.NameFinderME;
 import opennlp.tools.namefind.TokenNameFinderModel;
