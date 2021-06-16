@@ -10,7 +10,7 @@ public class EmployeeDB {
 
 	public static HashMap<Integer, Employee> employees = new HashMap<Integer, Employee>();
 	static {
-		employees.put(1, new Employee(1, "Lokesh", "Gupta", "India"));
+		employees.put(1, new Employee(1, "SriRanjith", "Gupta", "India"));
 		employees.put(2, new Employee(2, "John", "Gruber", "USA"));
 		employees.put(3, new Employee(3, "Melcum", "Marshal", "AUS"));
 	}

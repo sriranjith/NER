@@ -21,6 +21,9 @@ import javax.ws.rs.core.Response.Status;
 import com.sri.rest.dao.EmployeeDB;
 import com.sri.rest.representations.Employee;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Path("/employees")
 @Produces(MediaType.APPLICATION_JSON)
 public class EmployeeRESTController {
@@ -33,7 +36,7 @@ public class EmployeeRESTController {
 
     @GET
     public Response getEmployees() {
-
+        log.info("Get Employee Details");
         return Response.ok(EmployeeDB.getEmployees()).build();
     }
 
